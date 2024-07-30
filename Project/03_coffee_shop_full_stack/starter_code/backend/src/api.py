@@ -72,7 +72,7 @@ def get_drink_detail(payload):
 @requires_auth('post:drinks')
 def create_drink(payload):
     drinks = request.get_json()
-
+    print('inside post drinks', drinks)
     try:
         recipe = drinks.get('recipe', None)
         title = drinks.get('title', None)

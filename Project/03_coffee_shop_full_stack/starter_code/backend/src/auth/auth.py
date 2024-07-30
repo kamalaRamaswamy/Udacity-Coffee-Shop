@@ -7,7 +7,7 @@ from urllib.request import urlopen
 
 AUTH0_DOMAIN = 'dev-gtukrfvev3mrepk8.us.auth0.com'
 ALGORITHMS = ['RS256']
-API_AUDIENCE = 'dev'
+API_AUDIENCE = 'coffee'
 
 ## AuthError Exception
 '''
@@ -55,7 +55,7 @@ def get_token_auth_header():
     return true otherwise
 '''
 def check_permissions(permission, payload):
-    if permission not in payload:
+    if 'permissions' not in payload:
          raise AuthError({
             'code': 'invalid_claims',
             'description': 'Permissions not included in the token!'
@@ -157,7 +157,6 @@ def requires_auth(permission=''):
             token = get_token_auth_header()
             payload = verify_decode_jwt(token)
             check_permissions(permission, payload)
-            print('permission', check_permissions)
             return f(payload, *args, **kwargs)
 
         return wrapper
